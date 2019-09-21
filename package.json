@@ -1,0 +1,12 @@
+{
+  "name": "headSearch",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/teradonburi/headSearch",
+  "author": "teradonburi <daikiterai@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "iconv-lite": "^0.5.0",
+    "newsapi": "^2.4.0"
+  }
+}
