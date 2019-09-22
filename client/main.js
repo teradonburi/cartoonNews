@@ -1,5 +1,5 @@
-const canvas = document.createElement('canvas');
-document.body.appendChild(canvas);
+import "regenerator-runtime/runtime"
+import axios from 'axios';
 
 function loadImage(src) {
   return new Promise((resolve, reject) => {
@@ -14,11 +14,16 @@ function loadImage(src) {
 
 async function main() {
   // 描画するための2Dコンテキスト
+  const canvas = document.createElement('canvas');
+  document.body.appendChild(canvas);
   const ctx = canvas.getContext('2d');
 
+  const news = await axios.get('/api/news?category=sport');
+  console.log(news.data)
+
   // 画像ファイルの読み込み
-  let imgMask = await loadImage('mask.png');
-  let img = await loadImage('man.jpg');
+  let imgMask = await loadImage(require('./mask.jpg'));
+  let img = await loadImage('./temp.jpg');
 
   canvas.width = img.width;
   canvas.height = img.height;
@@ -32,8 +37,6 @@ async function main() {
   let imageData1 = ctx.createImageData(canvas.clientWidth, canvas.clientHeight);
   let imageData2 = ctx.createImageData(canvas.clientWidth, canvas.clientHeight);
   let imageData3 = ctx.createImageData(canvas.clientWidth, canvas.clientHeight);
-  imageData1.data = originalImageData.data.slice();
-  imageData2.data = originalImageData.data.slice();
 
   // コピー
   let data = originalImageData.data;
@@ -116,9 +119,9 @@ async function main() {
 
   for (let i = 0; i < data.length; i+= 4) {
     if (data2[i] === 128 && data2[i + 1] === 128 && data2[i+2] === 128) {
-      imageData3.data[i] = data2[i] * (1 - maskImageData.data[i]/255)
-      imageData3.data[i+1] = data2[i+1] * (1 - maskImageData.data[i+1]/255)
-      imageData3.data[i+2] = data2[i+2] * (1 - maskImageData.data[i+2]/255)
+      imageData3.data[i] = data2[i] * maskImageData.data[i]/255
+      imageData3.data[i+1] = data2[i+1] * maskImageData.data[i+1]/255
+      imageData3.data[i+2] = data2[i+2] * maskImageData.data[i+2]/255
     } else {
       imageData3.data[i] = data2[i] * data1[i] / 255;
       imageData3.data[i+1] = data2[i+1] * data1[i+1] / 255;
