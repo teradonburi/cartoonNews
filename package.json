@@ -16,6 +16,8 @@
     "newsapi": "^2.4.0"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.4.0",
     "nodemon": "^1.19.2",
     "parcel-bundler": "^1.12.3",
     "regenerator-runtime": "^0.13.3"
