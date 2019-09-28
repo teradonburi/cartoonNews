@@ -6,7 +6,7 @@
   "author": "teradonburi <daikiterai@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=dev nodemon --inspect server.js",
+    "dev": "NODE_ENV=dev nodemon --inspect server.js",
     "build": "rm -rf dist/* && parcel build client/index.html -d dist --no-source-maps",
     "prod": "NODE_ENV=production node server.js"
   },
