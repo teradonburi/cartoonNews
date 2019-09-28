@@ -38,7 +38,7 @@ html, body {
   text-shadow: 2px 2px 2px black;
 }
 #content {
-  padding: 40px;
+  padding: 0px 40px 20px 40px;
   margin-bottom: 60px;
 }
 #title {
@@ -81,6 +81,58 @@ html, body {
   box-shadow: 0px -1px 4px black;
   text-shadow: 2px 2px 2px black;
 }
+.comic {
+  margin: 20px;
+  padding: 20px;
+  text-align: center;
+}
+.arrow_box {
+  position:relative;
+  width:300px;
+  height:65px;
+  background:#FFFFFF;
+  padding:20px;
+  text-align:left;
+  border:1px solid #E0E0E0;
+  color:#666666;
+  font-size:20px;
+  font-weight:bold;
+  border-radius:10px;
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  text-shadow:0px 1px 1px #ADADAD;
+  box-shadow: 2px 4px 4px grey;
+  margin-top: 10px;
+}
+.arrow_box:after,.arrow_box:before{
+  border: solid transparent;
+  content:'';
+  height:0;
+  width:0;
+  pointer-events:none;
+  position:absolute;
+  bottom:100%;
+  left:50%;
+}
+.arrow_box:after{
+  border-color: rgba(255, 255, 255, 0);
+  border-top-width:20px;
+  border-bottom-width:20px;
+  border-left-width:10px;
+  border-right-width:10px;
+  margin-left: -10px;
+  border-bottom-color:#FFFFFF;
+}
+.arrow_box:before{
+  border-color: rgba(224, 224, 224, 0);
+  border-top-width:24px;
+  border-bottom-width:24px;
+  border-left-width:12px;
+  border-right-width:12px;
+  margin-left: -12px;
+  margin-bottom: 2px;
+  border-bottom-color:#E0E0E0;
+}
 
 @media screen and (max-width: 600px) {
   .container {
@@ -98,7 +150,9 @@ html, body {
 <div class='root'>
   <div class='container'>
     <div class='header'>今日のニュース</div>
-    <canvas></canvas>
+    <div class='comic'>
+      <canvas></canvas>
+    </div>
     <div id='content'>
       <div id='title'></div>
       <div id='description'></div>

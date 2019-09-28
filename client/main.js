@@ -7,13 +7,23 @@ async function main() {
   const dataScript = document.querySelector('#data')
   const news = JSON.parse(dataScript.getAttribute('data-json'))
 
+  let comment = null
+
   if (news.title) {
     const title = document.querySelector('#title')
     title.innerText = news.title
+    const comments = news.title.match(/「.*」/)
+    if (comments && comments.length > 0) {
+      comment = comments[0].replace(/「|」/g, '')
+    }
   }
   if (news.description) {
     const description = document.querySelector('#description')
     description.innerText = news.description
+    const comments = news.description.match(/「.*」/)
+    if (comments && comments.length > 0) {
+      comment = comments[0].replace(/「|」/g, '')
+    }
   }
   if (news.publishedAt) {
     const publishedAt = document.querySelector('#publishedAt')
@@ -37,6 +47,16 @@ async function main() {
   let img = await loadImage('./temp.jpg')
 
   const canvas = document.querySelector('canvas')
+  if (comment) {
+    const commentDOM = document.createElement('div')
+    commentDOM.classList.add('arrow_box')
+    if (comment.length > 28) {
+      comment = comment.slice(0, 27) + '...'
+    }
+    commentDOM.innerHTML = comment
+    canvas.insertAdjacentHTML('afterend', commentDOM.outerHTML)
+  }
+
   // 描画するための2Dコンテキスト
   const ctx = canvas.getContext('2d')
   canvas.width = img.width
@@ -145,9 +165,8 @@ async function main() {
   }
 
   canvas.style.width = window.parent.screen.width < 600 ? '90%' : '300px'
-  canvas.style.borderRadius = '10px'
-  canvas.style.margin = '20px'
-  canvas.style.boxShadow = '4px 4px 4px grey'
+  canvas.style.border = '1px solid black'
+  canvas.style.boxShadow = '2px 4px 4px grey'
 
   // Canvasに画像を描画する
   ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight)
