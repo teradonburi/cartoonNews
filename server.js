@@ -30,7 +30,7 @@ async function downloadImage(url) {
   const response = await axios({
     url,
     method: 'GET',
-    responseType: 'stream'
+    responseType: 'stream',
   })
 
   response.data.pipe(writer)
@@ -47,14 +47,14 @@ app.get('/api/news', wrap(async (req, res) => {
     q: req.query.q,
     category: req.query.category,
     language: 'ja',
-    country: 'jp'
+    country: 'jp',
   })
 
   let result = {}
   for (const article of response.articles) {
     if (article.urlToImage) {
       result = article
-      break;
+      break
     }
   }
 

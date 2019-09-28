@@ -1,37 +1,46 @@
 import 'regenerator-runtime/runtime'
 import axios from 'axios'
-
-function loadImage(src) {
-  return new Promise((resolve) => {
-    const img = new Image()
-    img.onload = () => {
-      resolve(img)
-    }
-    img.src = src
-  })
-}
-
-function createCanvas(width, height) {
-  const canvas = document.createElement('canvas')
-  const ctx = canvas.getContext('2d')
-
-  canvas.width = width
-  canvas.height = height
-  document.body.appendChild(canvas)
-  return {ctx, canvas}
-}
+import moment from 'moment'
+import { loadImage } from './image'
 
 
 async function main() {
   // 描画するための2Dコンテキスト
   const news = await axios.get('/api/news?category=sport')
-  console.log(news)
+
+  if (news.data.title) {
+    const title = document.querySelector('#title')
+    title.innerText = news.data.title
+  }
+  if (news.data.description) {
+    const description = document.querySelector('#description')
+    description.innerText = news.data.description
+  }
+  if (news.data.publishedAt) {
+    const publishedAt = document.querySelector('#publishedAt')
+    publishedAt.innerText = `掲載日：${moment(news.data.publishedAt).format('YYYY-MM-DD HH時mm分').toString()}`
+  }
+  if (news.data.source.name) {
+    const source = document.querySelector('#source')
+    source.innerText = `掲載元：${news.data.source.name}`
+  }
+  if (news.data.url) {
+    const url = document.querySelector('#url')
+    const a = document.createElement('a')
+    a.href = news.data.url
+    a.target = '_blank'
+    a.innerHTML = news.data.url
+    url.innerHTML = '掲載元：' + a.outerHTML
+  }
 
   // 画像ファイルの読み込み
   let imgMask = await loadImage(require('./mask.jpg'))
   let img = await loadImage('./temp.jpg')
 
-  const {ctx, canvas} = createCanvas(img.width, img.height)
+  const canvas = document.querySelector('canvas')
+  const ctx = canvas.getContext('2d')
+  canvas.width = img.width
+  canvas.height = img.height
 
   ctx.drawImage(imgMask, 0, 0, imgMask.width, imgMask.height, 0, 0, canvas.clientWidth, canvas.clientHeight)
   const maskImageData = ctx.getImageData(0, 0, canvas.clientWidth, canvas.clientHeight)
@@ -135,9 +144,15 @@ async function main() {
     }
   }
 
+  canvas.style.width = window.parent.screen.width < 600 ? '90%' : '400px'
+  canvas.style.borderRadius = '10px'
+  canvas.style.margin = '20px'
+  canvas.style.boxShadow = '4px 4px 4px grey'
+
   // Canvasに画像を描画する
   ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight)
   ctx.putImageData(imageData3, 0, 0)
+
 }
 main()
 

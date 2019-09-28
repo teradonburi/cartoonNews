@@ -2,10 +2,113 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <title>画像漫画化変換</title>
+    <title>日刊漫画化ニュース</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style type="text/css">
+html, body {
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: content-box;
+  height: 100%;
+}
+.root {
+  display: flex;
+  justify-content: center;
+  min-height: 100%;
+  position: relative;
+  height: auto;
+}
+.container {
+  width: 968px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #e0e0e0;
+}
+.header {
+  background: #583eb9;
+  text-align: center;
+  color: white;
+  font-size: 30px;
+  padding: 10px 0px;
+  font-weight: bold;
+  width: 100%;
+  box-shadow: 0px 4px 4px grey;
+  text-shadow: 2px 2px 2px black;
+}
+#content {
+  padding: 40px;
+  margin-bottom: 60px;
+}
+#title {
+  font-size: 24px;
+  font-weight: bold;
+  white-space: pre-wrap;
+  margin-bottom: 20px;
+  text-align: center;
+}
+#description {
+  font-size: 16px;
+  line-height: 200%;
+  color: #313131;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+#publishedAt {
+  line-height: 200%;
+  font-weight: bold;
+}
+#source {
+  line-height: 200%;
+  font-weight: bold;
+}
+#url {
+  line-height: 200%;
+  font-weight: bold;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  background: grey;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 16px 0px;
+  max-width: 968px;
+  box-shadow: 0px -1px 4px black;
+  text-shadow: 2px 2px 2px black;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: 100%;
+  }
+  .header {
+    font-size: 24px;
+  }
+}
+
+
+</style>
   </head>
 <body>
 <script type="text/javascript" src="main.js"></script>
+<div class='root'>
+  <div class='container'>
+    <div class='header'>今日のスポーツニュース</div>
+    <canvas></canvas>
+    <div id='content'>
+      <div id='title'></div>
+      <div id='description'></div>
+      <div id='publishedAt'></div>
+      <div id='source'></div>
+      <div id='url'></div>
+    </div>
+    <div class='footer'>日刊漫画化ニュース</div>
+  </div>
+</div>
 </body>
 </html>
