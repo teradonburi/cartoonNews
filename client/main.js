@@ -1,35 +1,34 @@
 import 'regenerator-runtime/runtime'
-import axios from 'axios'
 import moment from 'moment'
 import { loadImage } from './image'
 
 
 async function main() {
-  // 描画するための2Dコンテキスト
-  const news = await axios.get('/api/news?category=sport')
+  const dataScript = document.querySelector('#data')
+  const news = JSON.parse(dataScript.getAttribute('data-json'))
 
-  if (news.data.title) {
+  if (news.title) {
     const title = document.querySelector('#title')
-    title.innerText = news.data.title
+    title.innerText = news.title
   }
-  if (news.data.description) {
+  if (news.description) {
     const description = document.querySelector('#description')
-    description.innerText = news.data.description
+    description.innerText = news.description
   }
-  if (news.data.publishedAt) {
+  if (news.publishedAt) {
     const publishedAt = document.querySelector('#publishedAt')
-    publishedAt.innerText = `掲載日：${moment(news.data.publishedAt).format('YYYY-MM-DD HH時mm分').toString()}`
+    publishedAt.innerText = `掲載日：${moment(news.publishedAt).format('YYYY月MM月DD日 HH時mm分').toString()}`
   }
-  if (news.data.source.name) {
+  if (news.source.name) {
     const source = document.querySelector('#source')
-    source.innerText = `掲載元：${news.data.source.name}`
+    source.innerText = `掲載元：${news.source.name}`
   }
-  if (news.data.url) {
+  if (news.url) {
     const url = document.querySelector('#url')
     const a = document.createElement('a')
-    a.href = news.data.url
+    a.href = news.url
     a.target = '_blank'
-    a.innerHTML = news.data.url
+    a.innerHTML = news.url
     url.innerHTML = '掲載元：' + a.outerHTML
   }
 
@@ -38,6 +37,7 @@ async function main() {
   let img = await loadImage('./temp.jpg')
 
   const canvas = document.querySelector('canvas')
+  // 描画するための2Dコンテキスト
   const ctx = canvas.getContext('2d')
   canvas.width = img.width
   canvas.height = img.height
@@ -144,7 +144,7 @@ async function main() {
     }
   }
 
-  canvas.style.width = window.parent.screen.width < 600 ? '90%' : '400px'
+  canvas.style.width = window.parent.screen.width < 600 ? '90%' : '300px'
   canvas.style.borderRadius = '10px'
   canvas.style.margin = '20px'
   canvas.style.boxShadow = '4px 4px 4px grey'

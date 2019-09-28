@@ -7,11 +7,12 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=dev nodemon --inspect server.js",
-    "build": "rm -rf dist/* && parcel build client/index.html -d dist --no-source-maps",
+    "build": "rm -rf dist/* && parcel build client/template.html -d dist --no-source-maps",
     "prod": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
     "moment": "^2.24.0",
     "newsapi": "^2.4.0"
