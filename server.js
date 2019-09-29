@@ -58,9 +58,10 @@ app.get('/', wrap(async (req, res) => {
   })
 
   let result = {}
+  const excludes = ['Nifty.com', 'Itmedia.co.jp'] // 文字化けするメディア
   for (const article of response.articles) {
     // 画像つき＆文字化けするニュース元を弾く
-    if (article.urlToImage && article.source.name !== 'Nifty.com') {
+    if (article.urlToImage && !excludes.includes(article.source.name)) {
       result = article
       break
     }
