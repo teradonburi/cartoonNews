@@ -6,6 +6,7 @@ import { loadImage } from './image'
 async function main() {
   const dataScript = document.querySelector('#data')
   const news = JSON.parse(decodeURIComponent(dataScript.getAttribute('data-json')))
+  dataScript.parentNode.removeChild(dataScript)
 
   let comment = null
 
@@ -44,7 +45,7 @@ async function main() {
 
   // 画像ファイルの読み込み
   let imgMask = await loadImage(require('./mask.jpg'))
-  let img = await loadImage('./temp.jpg')
+  let img = await loadImage(news.image)
 
   const canvas = document.querySelector('canvas')
   if (comment) {

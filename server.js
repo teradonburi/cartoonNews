@@ -23,10 +23,8 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
-async function downloadImage(url) {
-  const token = url.split('.')
-  const ext = token[token.length - 1]
-  const writer = fs.createWriteStream(path.resolve(__dirname, 'dist', `temp.${ext}`))
+async function downloadImage(url, filename) {
+  const writer = fs.createWriteStream(path.resolve(__dirname, 'dist', filename))
 
   const response = await axios({
     url,
@@ -45,6 +43,12 @@ async function downloadImage(url) {
 // SSR
 app.get('/', wrap(async (req, res) => {
 
+  const categories = ['sports', 'business', 'entertainment', 'health', 'science', 'technology', 'general']
+  let category = categories.find(c => c === req.query.category)
+  if (!category) {
+    category = undefined
+  }
+
   // ニュースAPIでニュース取得
   const response = await newsapi.v2.topHeadlines({
     q: req.query.q,
@@ -61,8 +65,13 @@ app.get('/', wrap(async (req, res) => {
     }
   }
 
+
   if (result.urlToImage) {
-    await downloadImage(result.urlToImage)
+    const token = result.urlToImage.split('.')
+    const ext = token[token.length - 1]
+    const filename = `${category || 'temp'}${req.query.q ? `_${req.query.q}` : ''}.${ext}`
+    await downloadImage(result.urlToImage, filename)
+    result.image = filename
   }
 
   // HTMLレンダリング
