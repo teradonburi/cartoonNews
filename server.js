@@ -69,9 +69,7 @@ app.get('/', wrap(async (req, res) => {
 
 
   if (result.urlToImage) {
-    const token = result.urlToImage.split('.')
-    const ext = token[token.length - 1]
-    const filename = `${category || 'temp'}${req.query.q ? `_${req.query.q}` : ''}.${ext}`
+    const filename = `${category || 'temp'}${req.query.q ? `_${req.query.q}` : ''}`
     await downloadImage(result.urlToImage, filename)
     result.image = filename
   }
