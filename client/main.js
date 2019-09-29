@@ -41,7 +41,7 @@ async function main() {
     a.target = '_blank'
     a.innerHTML = news.url
     a.style.wordBreak = 'break-all'
-    url.innerHTML = '掲載元：' + a.outerHTML
+    url.innerHTML = '掲載元URL：' + a.outerHTML
   }
 
   // 画像ファイルの読み込み

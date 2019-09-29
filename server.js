@@ -59,7 +59,8 @@ app.get('/', wrap(async (req, res) => {
 
   let result = {}
   for (const article of response.articles) {
-    if (article.urlToImage) {
+    // 画像つき＆文字化けするニュース元を弾く
+    if (article.urlToImage && article.source.name !== 'Nifty.com') {
       result = article
       break
     }
