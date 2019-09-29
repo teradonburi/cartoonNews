@@ -92,7 +92,7 @@ app.get('/', wrap(async (req, res) => {
   $('head').append(twitterCard)
 
   // JSON
-  $('head').append(`<script id='data' data-json='${JSON.stringify(result)}'></script>`)
+  $('head').append(`<script id='data' data-json='${encodeURIComponent(JSON.stringify(result))}'></script>`)
 
   res.writeHead(200, {'Content-Type': 'text/html'})
   res.write($.html())

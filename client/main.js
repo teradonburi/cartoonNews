@@ -5,7 +5,7 @@ import { loadImage } from './image'
 
 async function main() {
   const dataScript = document.querySelector('#data')
-  const news = JSON.parse(dataScript.getAttribute('data-json'))
+  const news = JSON.parse(decodeURIComponent(dataScript.getAttribute('data-json')))
 
   let comment = null
 
