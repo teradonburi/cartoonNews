@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=dev nodemon --inspect server.js",
-    "build": "rm -rf dist/* && parcel build client/template.html -d dist --no-source-maps && cp client/googleac6d557c92a2906e.html dist",
+    "build": "rm -rf dist/* && parcel build client/template.html -d dist --no-source-maps && cp sitemap.xml dist && cp robots.txt dist && cp client/googleac6d557c92a2906e.html dist",
     "prod": "NODE_ENV=production node server.js"
   },
   "dependencies": {
