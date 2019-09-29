@@ -40,6 +40,7 @@ async function main() {
     a.href = news.url
     a.target = '_blank'
     a.innerHTML = news.url
+    a.style.wordBreak = 'break-all'
     url.innerHTML = '掲載元：' + a.outerHTML
   }
 

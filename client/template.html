@@ -84,7 +84,9 @@ html, body {
 .comic {
   margin: 20px;
   padding: 20px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .arrow_box {
   position:relative;
@@ -141,6 +143,19 @@ html, body {
   }
   .header {
     font-size: 24px;
+  }
+  .arrow_box {
+    width:250px;
+  }
+  .comic {
+    margin: 0px;
+  }
+  #title {
+    text-align: start;
+  }
+  .arrow_box {
+    width: 230px;
+    font-size: 16px;
   }
 }
 
